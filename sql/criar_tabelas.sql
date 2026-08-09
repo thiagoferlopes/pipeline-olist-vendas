@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS customers (
     customer_id VARCHAR PRIMARY KEY,
+    customer_unique_id VARCHAR,
+    customer_zip_code_prefix VARCHAR,
     customer_city VARCHAR,
     customer_state VARCHAR
 );
@@ -9,6 +11,8 @@ CREATE TABLE IF NOT EXISTS orders (
     customer_id VARCHAR REFERENCES customers(customer_id),
     order_status VARCHAR,
     order_purchase_timestamp TIMESTAMP,
+    order_approved_at TIMESTAMP,
+    order_delivered_carrier_date TIMESTAMP,
     order_delivered_customer_date TIMESTAMP,
     order_estimated_delivery_date TIMESTAMP
 );
@@ -23,6 +27,9 @@ CREATE TABLE IF NOT EXISTS sellers (
 CREATE TABLE IF NOT EXISTS products (
     product_id VARCHAR PRIMARY KEY,
     product_category_name VARCHAR,
+    product_name_lenght NUMERIC,
+    product_description_lenght NUMERIC,
+    product_photos_qty NUMERIC,
     product_weight_g NUMERIC,
     product_length_cm NUMERIC,
     product_height_cm NUMERIC,
@@ -34,6 +41,7 @@ CREATE TABLE IF NOT EXISTS order_items (
     order_item_id INTEGER,
     product_id VARCHAR REFERENCES products(product_id),
     seller_id VARCHAR REFERENCES sellers(seller_id),
+    shipping_limit_date TIMESTAMP,
     price NUMERIC,
     freight_value NUMERIC,
     PRIMARY KEY (order_id, order_item_id)

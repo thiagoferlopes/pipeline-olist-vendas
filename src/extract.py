@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 
-RAW_DATA_PATH = Path('data/raw/dataset-olist')
+RAW_DATA_PATH = Path('data/raw')
 
 def extrair_csv(nome_arquivo: str) -> pd.DataFrame:
     caminho = RAW_DATA_PATH / nome_arquivo
